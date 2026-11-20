@@ -1,0 +1,26 @@
+---
+// Scrolling ribbon of words. Pauses on hover; static for reduced-motion users.
+interface Props { items: string[] }
+const { items } = Astro.props;
+const run = [...items, ...items];
+---
+<div class="marquee" aria-hidden="true">
+  <div class="belt">
+    {[0, 1].map(() => (
+      <ul>{run.map((i) => <li>{i}<span>✶</span></li>)}</ul>
+    ))}
+  </div>
+</div>
+<p class="sr-only">{items.join(', ')}</p>
+
+<style>
+  .marquee { background: var(--orange); color: var(--black); overflow: hidden; border-block: 2px solid var(--black); }
+  .belt { display: flex; width: max-content; animation: slide 40s linear infinite; }
+  .marquee:hover .belt { animation-play-state: paused; }
+  ul { display: flex; list-style: none; margin: 0; padding: 12px 0; }
+  li { font-family: var(--font-display); font-size: clamp(.95rem, 1.6vw, 1.2rem); white-space: nowrap; padding: 0 .9em; }
+  li span { padding-left: 1.8em; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .belt { animation: none; } }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>

@@ -5,11 +5,12 @@ interface Props {
   clip: string;                       // file name in /public/film without extension
   treatment?: 'mono' | 'warm' | 'raw' | 'screen';
   strength?: number;                  // 0–1 opacity of the film layer
+  eager?: boolean;                    // start loading straight away (headers)
 }
-const { clip, treatment = 'mono', strength = 0.45 } = Astro.props;
+const { clip, treatment = 'mono', strength = 0.45, eager = false } = Astro.props;
 ---
 <div class={`film film--${treatment}`} style={`--strength:${strength}`} aria-hidden="true">
-  <video muted loop playsinline preload="none" poster={`/film/${clip}.jpg`} data-src={`/film/${clip}.mp4`}></video>
+  <video muted loop playsinline preload={eager ? "auto" : "none"} poster={`/film/${clip}.jpg`} data-src={`/film/${clip}.mp4`}></video>
 </div>
 
 <style>

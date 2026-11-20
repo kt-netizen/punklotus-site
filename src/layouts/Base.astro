@@ -15,12 +15,12 @@ const schema = {
   name: 'Punk Lotus',
   url: 'https://www.punklotus.com',
   logo: 'https://www.punklotus.com/images/punklotus-logo-white.png',
-  description: 'Senior brand strategy and communications consulting for creative founders.',
+  description: 'Senior brand strategy for Australian businesses: brand foundations, strategy and set-up delivered as fixed-scope projects, remotely.',
   email: 'kt@punklotus.com',
   telephone: '+61468825419',
   founder: { '@type': 'Person', name: 'Kirsty Thompson', jobTitle: 'Brand and communications strategist', sameAs: ['https://www.linkedin.com/in/kirstythompsononline/'] },
   address: { '@type': 'PostalAddress', addressRegion: 'NSW', addressCountry: 'AU' },
-  areaServed: 'AU',
+  areaServed: { '@type': 'Country', name: 'Australia' },
 };
 ---
 <!doctype html>
@@ -42,6 +42,7 @@ const schema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Climate+Crisis&family=Noto+Sans+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <slot name="head" />
   </head>
@@ -50,7 +51,7 @@ const schema = {
     <header class="site-header">
       <div class="wrap bar">
         <a href="/" class="logo" aria-label="Punk Lotus home">
-          <img src="/images/punklotus-logo-horizontal-white.png" alt="Punk Lotus" width="600" height="400" />
+          <img src="/images/punklotus-logo-horizontal-white.png" alt="Punk Lotus" width="900" height="240" />
         </a>
         <nav aria-label="Main">
           <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a>
@@ -63,18 +64,31 @@ const schema = {
       <slot />
     </main>
     <footer class="site-footer">
-      <div class="wrap">
-        <nav class="foot-nav" aria-label="Footer">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/brandconsulting">The Work</a>
-          <a href="https://www.linkedin.com/in/kirstythompsononline/" rel="noopener">LinkedIn</a>
-        </nav>
-        <p>Punk Lotus · Kirsty Thompson · Northern Rivers, NSW</p>
-        <p><a href="mailto:kt@punklotus.com">kt@punklotus.com</a> · <a href="tel:+61468825419">0468 825 419</a></p>
-        <p class="small">© {new Date().getFullYear()} Punk Lotus</p>
+      <div class="wrap foot">
+        <img src="/images/punklotus-logo-horizontal-white.png" alt="" width="900" height="240" class="foot-logo" />
+        <div>
+          <nav class="foot-nav" aria-label="Footer">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/brandconsulting">The Work</a>
+            <a href="https://www.linkedin.com/in/kirstythompsononline/" rel="noopener">LinkedIn</a>
+          </nav>
+          <p>Kirsty Thompson · Northern Rivers, NSW · working with businesses Australia-wide</p>
+          <p><a href="mailto:kt@punklotus.com">kt@punklotus.com</a> · <a href="tel:+61468825419">0468 825 419</a></p>
+          <p class="small">© {new Date().getFullYear()} Punk Lotus</p>
+        </div>
       </div>
     </footer>
+    <script>
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) els.forEach((e) => e.classList.add('in'));
+      else {
+        const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        }), { threshold: 0.12 });
+        els.forEach((e) => io.observe(e));
+      }
+    </script>
   </body>
 </html>
 
@@ -82,16 +96,19 @@ const schema = {
   .skip { position: absolute; left: -9999px; }
   .skip:focus { left: 16px; top: 16px; z-index: 10; background: var(--orange); color: var(--black); padding: 8px 12px; }
   .site-header { background: var(--black); position: sticky; top: 0; z-index: 5; }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; padding-bottom: 12px; }
-  .logo img { height: clamp(64px, 9vw, 96px); width: auto; margin: -8px 0; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 14px; padding-bottom: 14px; }
+  .logo img { height: clamp(40px, 5.5vw, 64px); width: auto; }
   nav { display: flex; align-items: center; gap: clamp(12px, 3vw, 32px); font-family: var(--font-ui); }
-  nav a:not(.btn) { color: var(--white); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .85rem; }
-  nav a:not(.btn):hover, nav a[aria-current='page'] { color: var(--orange); }
-  @media (max-width: 520px) { nav .btn { display: none; } }
-  .site-footer { background: var(--black); color: var(--cream); padding: 40px 0; font-family: var(--font-ui); font-size: .9rem; }
+  .bar nav a:not(.btn) { color: var(--white); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .85rem; }
+  .bar nav a:not(.btn):hover, .bar nav a[aria-current='page'] { color: var(--orange); }
+  @media (max-width: 560px) { nav .btn { display: none; } }
+  .site-footer { background: var(--orange); color: var(--black); padding: 48px 0; font-family: var(--font-ui); font-size: .95rem; }
+  .foot { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; justify-content: space-between; }
+  .foot-logo { height: 56px; width: auto; filter: brightness(0); }
   .site-footer p { margin: 0 0 .4em; }
-  .small { opacity: .7; font-size: .8rem; }
-  .foot-nav { justify-content: flex-start; flex-wrap: wrap; margin-bottom: 20px; }
-  .site-footer a { color: var(--cream); }
-  .foot-nav a:hover { color: var(--orange); }
+  .site-footer a { color: var(--black); }
+  .foot-nav { justify-content: flex-start; flex-wrap: wrap; margin-bottom: 16px; }
+  .foot-nav a { color: var(--black); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .85rem; text-decoration: none; }
+  .foot-nav a:hover { text-decoration: underline; }
+  .small { opacity: .75; font-size: .8rem; }
 </style>

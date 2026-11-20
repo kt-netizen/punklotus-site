@@ -2,7 +2,9 @@
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Carousel from '../components/Carousel.astro';
-import FilmBg from '../components/FilmBg.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import GutCheck from '../components/GutCheck.astro';
 
 const services = [
   {
@@ -19,11 +21,6 @@ const services = [
     name: 'Launch & Campaigns',
     body: 'Taking a brand to market or activating one that needs to move. Communications strategy, campaign development, content, email sequences, social, and PR; all built around what the brand needs to achieve. Equally suited to new launches, product releases, repositioning moments, or established brands that need a push.',
     deliverables: ['Communications strategy and campaign planning', 'Campaign creative concept and development', 'Content production (copy, social assets, video direction)', 'Email sequences and EDMs', 'Social media strategy and assets', 'PR strategy, press releases and media outreach', 'Landing pages and campaign-specific web assets', 'Cross-channel rollout and project management', 'Reporting and post-launch insights'],
-  },
-  {
-    name: 'Ongoing Partnership',
-    body: 'A monthly retainer for founders who want a brand and communications partner embedded in the business. Strategic guidance, content, campaign work, and creative project management — scoped to your stage and capacity. Best for businesses past the foundational stage that want continuity, momentum, and a senior strategic voice without hiring in-house.',
-    deliverables: ['Strategic counsel and quarterly brand reviews', 'Annual communications planning', 'Content strategy and editorial calendars', 'Ongoing copywriting (blog, newsletter, social)', 'Social media direction and asset oversight', 'Campaign development and rollout', 'Creative project management and vendor coordination', 'Brand governance and consistency oversight', 'Fractional CMO / brand director support'],
   },
   {
     name: 'AI-Ready Brand Systems',
@@ -59,21 +56,28 @@ const testimonials = [
 const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFor[i][1] }));
 ---
 <Base
-  title="Brand & Communications Consulting — Punk Lotus"
-  description="Honest brand and communications consulting for creative founders. Strategy, messaging, and visual identity built from the foundations up."
+  title="Brand Strategy & Brand Foundations Projects — Punk Lotus"
+  description="Brand foundations, rebrands, launch strategy and AI-ready brand systems — fixed-scope 3–6 month projects for Australian businesses, delivered remotely. Start with a $350 Brand Gut-Check."
 >
-  <section class="hero hero--center">
-    <div class="wrap center">
-      <h1>The Work</h1>
-      <p class="lede">Brand and communications consulting for creative founders.</p>
-      <a href="#contact" class="btn">Enquire Now</a>
-    </div>
-  </section>
+  <Hero
+    title="The Work"
+    sub="Brand and communications projects, scoped to fit. Three to six months, priced up front, then handed over."
+  >
+    <a class="btn" href="#contact">Enquire Now</a>
+    <a class="btn btn--ghost" href="#gut-check">Or start with a Gut-Check</a>
+  </Hero>
 
-  <section class="section section--cream">
-    <div class="wrap">
-      <h2>Services scoped to fit.</h2>
-      <div class="services">
+  <Marquee items={['Discovery', 'Strategy', 'Brand foundations', 'Set-up', 'Handover']} />
+
+  <div id="gut-check"><GutCheck /></div>
+
+  <section class="section section--light">
+    <div class="wrap split">
+      <div class="stick reveal">
+        <h2>Services scoped to fit.</h2>
+        <p>Each one runs as its own project, with a clear scope, a fixed price and an end date.</p>
+      </div>
+      <div class="services reveal">
         {services.map((s) => (
           <details class="service">
             <summary><h3>{s.name}</h3><span class="toggle" aria-hidden="true"></span></summary>
@@ -90,7 +94,7 @@ const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFo
 
   <section class="section section--white">
     <div class="wrap">
-      <h2>Proof.</h2>
+      <h2 class="reveal">Proof.</h2>
       <Carousel label="Proof: brand work" perView={3}>
         {proofCards.map((p) => (
           <li class="card">
@@ -103,10 +107,9 @@ const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFo
     </div>
   </section>
 
-  <section class="section section--dark has-film">
-    <FilmBg clip="16mm-sprocket-03" treatment="mono" strength={0.35} />
+  <section class="section section--orange">
     <div class="wrap">
-      <Carousel label="Testimonials" perView={1} tone="dark">
+      <Carousel label="Testimonials" perView={1}>
         {testimonials.map((t) => (
           <li>
             <figure>
@@ -119,8 +122,8 @@ const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFo
     </div>
   </section>
 
-  <section class="section section--white" id="contact">
-    <div class="wrap contact">
+  <section class="section section--cream" id="contact">
+    <div class="wrap split reveal">
       <div>
         <h2>Let’s Talk</h2>
         <p>Send a few lines about your business and what you're trying to figure out, and I'll come back to set up a call.</p>
@@ -132,11 +135,10 @@ const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFo
 </Base>
 
 <style>
-  .center { text-align: center; }
-  .center .lede { margin-bottom: 1.4em; }
-  .services { display: grid; max-width: 80ch; border-top: 3px solid var(--charcoal); }
+  .services { border-top: 3px solid var(--charcoal); }
   .service { border-bottom: 3px solid var(--charcoal); }
-  summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; }
+  summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; transition: color .15s ease, padding .15s ease; }
+  summary:hover { color: var(--orange-deep); padding-left: 8px; }
   summary::-webkit-details-marker { display: none; }
   summary h3 { margin: 0; }
   summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
@@ -144,17 +146,17 @@ const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFo
   .toggle::before, .toggle::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px; background: currentColor; transition: transform .2s; }
   .toggle::after { transform: rotate(90deg); }
   details[open] .toggle::after { transform: rotate(0deg); }
+  details[open] summary { color: var(--orange-deep); }
   .service-body { padding-bottom: 24px; }
   .label { font-family: var(--font-ui); font-weight: 700; margin-bottom: .4em; }
   .service ul { margin: 0; padding-left: 1.2em; }
-  .card img { width: 140px; height: 140px; object-fit: contain; margin-bottom: 20px; }
-  .card h3 { font-size: 1.1rem; color: var(--charcoal); }
-  .card p { font-size: .95rem; }
-  figure { margin: 0; max-width: 60ch; }
-  blockquote { margin: 0 0 1em; color: var(--white); font-size: clamp(1.05rem, 2vw, 1.3rem); }
-  figcaption { font-family: var(--font-ui); font-weight: 700; color: var(--cream); }
-  figcaption a { color: var(--orange); }
-  .contact { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
-  .contact a { color: var(--charcoal); font-weight: 700; }
-  @media (prefers-reduced-motion: reduce) { .toggle::before, .toggle::after { transition: none; } }
+  .card { background: var(--cream-light); padding: 24px; height: 100%; border-top: 4px solid var(--orange); transition: transform .2s ease, box-shadow .2s ease; }
+  .card:hover { transform: translate(-4px, -4px); box-shadow: 4px 4px 0 var(--charcoal); }
+  .card img { width: 120px; height: 120px; object-fit: contain; margin-bottom: 16px; }
+  .card h3 { font-size: 1.05rem; }
+  .card p { font-size: .92rem; margin: 0; }
+  figure { margin: 0; max-width: 62ch; }
+  blockquote { margin: 0 0 1em; font-size: clamp(1.05rem, 2vw, 1.35rem); }
+  figcaption { font-family: var(--font-ui); font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) { .card, summary, .toggle::before, .toggle::after { transition: none; } .card:hover { transform: none; } }
 </style>

@@ -1,45 +1,65 @@
 ---
 import Base from '../layouts/Base.astro';
-import ContactForm from '../components/ContactForm.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import GutCheck from '../components/GutCheck.astro';
 import Carousel from '../components/Carousel.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const steps = [
+  "Together, we develop a plan that's realistic, strategic and personal. From there, you receive a clear proposal: scope, deliverables and different price points to choose from.",
+  'The work is delivered in stages, with check-ins and approvals along the way. This keeps the strategy grounded in what you really need, and flexible to changes.',
+  "The work comes to life. A brand launched, a campaign live, a rebrand rolled out, a website live. Then it's handed over, set up for you and your team to run with.",
+];
 ---
 <Base
-  title="Punk Lotus — Brand Consulting for Creative Founders"
-  description="Zero-bullshit brand and communications consulting for creative founders. Brand creation, communication foundations, rebrands, launches & more. Based in northern NSW."
+  title="Punk Lotus — Senior Brand Strategy, Straight Up"
+  description="Senior brand strategy for Australian businesses. Brand foundations, strategy and set-up as fixed 3–6 month projects, delivered remotely. Start with a $350 Brand Gut-Check."
 >
-  <section class="hero">
-    <div class="wrap">
-      <h1>Brand consulting for creative founders.</h1>
+  <Hero
+    title="Senior brand strategy for businesses that know what they want."
+    sub="Discovery, strategy, brand foundations and set-up — scoped as one project, done properly, then handed over. Based in the Northern Rivers, working Australia-wide."
+  >
+    <a class="btn" href="#gut-check">Start with a Gut-Check</a>
+    <a class="btn btn--ghost" href="/brandconsulting">See the work</a>
+  </Hero>
+
+  <Marquee items={['Brand foundations', 'Positioning', 'Messaging', 'Voice & language', 'Visual identity', 'Rebrands', 'Launch strategy', 'AI-ready brand systems']} />
+
+  <section class="section section--light">
+    <div class="wrap split reveal">
+      <div class="stick"><h2>Building brand foundations with strategy and style that fit.</h2></div>
+      <div>
+        <p>Whether you're starting from scratch, super busy or simply want to collaborate, the work we do together is shaped around your reality, personality, needs and resources.</p>
+        <p>That means building from the foundations up: positioning, audience, messaging, voice, and visual identity; or picking up wherever things have come unstuck.</p>
+        <p>If you've outgrown your current brand, we rebrand it. If you're launching something new, we build the communication strategy to take it to market.</p>
+        <p>Every project is scoped up front, runs three to six months, and ends with everything handed over — so your team, and your AI tools, can carry it without me.</p>
+        <p class="lede">This is about getting over the hump, and <span class="hl">getting it done.</span></p>
+        <div class="links"><a class="more" href="/brandconsulting">See the work →</a><a class="more" href="/about">About Kirsty →</a></div>
+      </div>
     </div>
   </section>
 
-  <section class="section section--dark">
-    <div class="wrap measure">
-      <h2 class="lede">Building brand foundations with strategy and style that fit.</h2>
-      <p>Whether you're starting from scratch, super busy or simply want to collaborate, the work we do together is shaped around your reality, personality, needs and resources.</p>
-      <p>That means building from the foundations up: positioning, audience, messaging, voice, and visual identity; or picking up wherever things have come unstuck.</p>
-      <p>If you've outgrown your current brand, we rebrand it. If you're launching something new, we build the communication strategy to take it to market.</p>
-      <p>If you're established and need ongoing strategic or general marketing support, that's what you get.</p>
-      <p>This is about getting over the hump, and getting it done.</p>
-      <p><a class="more" href="/brandconsulting">See the work →</a> &nbsp; <a class="more" href="/about">About Kirsty →</a></p>
-    </div>
-  </section>
+  <div id="gut-check"><GutCheck /></div>
 
-  <section class="section section--dark process">
+  <section class="section section--cream">
     <div class="wrap">
-      <h2>Process</h2>
-      <Carousel label="Process" perView={2} tone="dark">
-        <li class="step"><span class="num">01</span><p>Together, we develop a plan that's realistic, strategic and personal. From there, you receive a clear proposal: scope, deliverables and different price points to choose from.</p></li>
-        <li class="step"><span class="num">02</span><p>The work is delivered in stages, with check-ins and approvals along the way. This keeps the strategy grounded in what you really need, and flexible to changes.</p></li>
-        <li class="step"><span class="num">03</span><p>The work comes to life. A brand launched, a campaign live, a rebrand rolled out, a website live. We can keep working together as you grow, or you carry it forward on your own.</p></li>
+      <h2 class="reveal">Process</h2>
+      <Carousel label="Process" perView={3}>
+        {steps.map((s, i) => (
+          <li class="step reveal" style={`transition-delay:${i * 120}ms`}>
+            <span class="num">0{i + 1}</span>
+            <p>{s}</p>
+          </li>
+        ))}
       </Carousel>
     </div>
   </section>
 
-  <section class="section section--cream" id="contact">
-    <div class="wrap contact">
+  <section class="section section--white" id="contact">
+    <div class="wrap split reveal">
       <div>
-        <h2>It’s ok to ask for help.<br /><span class="plain">It’s literally my job.</span></h2>
+        <h2>It’s ok to ask for help.<br /><span class="hl">It’s literally my job.</span></h2>
         <p><a href="mailto:kt@punklotus.com">kt@punklotus.com</a><br /><a href="tel:+61468825419">0468 825 419</a></p>
       </div>
       <ContactForm name="contact-home" />
@@ -48,9 +68,9 @@ import Carousel from '../components/Carousel.astro';
 </Base>
 
 <style>
-  .step { border-left: 3px solid var(--orange); padding: 8px 0 8px 24px; }
-  .plain { color: var(--charcoal); opacity: .75; }
-  .num { display: block; font-family: var(--font-display); color: var(--orange); font-size: 2.4rem; margin-bottom: .3em; }
-  .contact { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
-  .contact a { color: var(--charcoal); font-weight: 700; }
+  .step { background: var(--cream-light); border-top: 4px solid var(--orange); padding: 24px; height: 100%; transition: transform .2s ease, box-shadow .2s ease; }
+  .step:hover { transform: translate(-4px, -4px); box-shadow: 4px 4px 0 var(--charcoal); }
+  .step p { margin: 0; }
+  .num { display: block; font-family: var(--font-display); color: var(--orange-deep); font-size: 2.2rem; line-height: 1; margin-bottom: 12px; }
+  @media (prefers-reduced-motion: reduce) { .step { transition: none; } .step:hover { transform: none; } }
 </style>
