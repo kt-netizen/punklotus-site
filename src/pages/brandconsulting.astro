@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const services = [
+  {
+    name: 'Brand Foundations',
+    body: "The strategic and creative backbone of a brand. Positioning, audience definition, messaging framework, brand voice and language, website and all aspects of visual identity (developed in collaboration with trusted designers). This is the work everything else is built on. Done properly, it keeps your branding on point across your team, your designers, and the AI tools you're already using. A brand that only lives in your head can't be briefed to anyone, human or machine. Best for new businesses building from scratch, or established ones that have never had proper foundations set.",
+    deliverables: ['Brand audit and competitor research', 'Audience definition and persona development', 'Positioning, purpose and values', 'Messaging framework and key messages', 'Brand voice, tone and language', 'Naming and tagline development', 'Visual identity (developed with trusted designers)', 'Brand guidelines', 'Website strategy, sitemaps, copy and project management', 'Launch-ready content and assets'],
+  },
+  {
+    name: 'Rebrand & Repositioning',
+    body: 'For businesses that have outgrown their current expression — whether the brand has shifted, the audience has matured, or the original identity was built before the business knew what it really was. The work spans strategic repositioning, refreshed messaging and voice, and visual identity evolution. The goal is bringing the brand into alignment with where the business is now.',
+    deliverables: ['Brand audit and brand health diagnostic', 'Audience and market reassessment', 'Refreshed positioning and messaging framework', 'Updated brand voice and language', 'Visual identity evolution (with trusted designers)', 'Updated brand guidelines', 'Website refresh or rebuild', 'Internal comms for rebrand rollout', 'Launch and announcement strategy for the rebrand'],
+  },
+  {
+    name: 'Launch & Campaigns',
+    body: 'Taking a brand to market or activating one that needs to move. Communications strategy, campaign development, content, email sequences, social, and PR; all built around what the brand needs to achieve. Equally suited to new launches, product releases, repositioning moments, or established brands that need a push.',
+    deliverables: ['Communications strategy and campaign planning', 'Campaign creative concept and development', 'Content production (copy, social assets, video direction)', 'Email sequences and EDMs', 'Social media strategy and assets', 'PR strategy, press releases and media outreach', 'Landing pages and campaign-specific web assets', 'Cross-channel rollout and project management', 'Reporting and post-launch insights'],
+  },
+  {
+    name: 'Ongoing Partnership',
+    body: 'A monthly retainer for founders who want a brand and communications partner embedded in the business. Strategic guidance, content, campaign work, and creative project management — scoped to your stage and capacity. Best for businesses past the foundational stage that want continuity, momentum, and a senior strategic voice without hiring in-house.',
+    deliverables: ['Strategic counsel and quarterly brand reviews', 'Annual communications planning', 'Content strategy and editorial calendars', 'Ongoing copywriting (blog, newsletter, social)', 'Social media direction and asset oversight', 'Campaign development and rollout', 'Creative project management and vendor coordination', 'Brand governance and consistency oversight', 'Fractional CMO / brand director support'],
+  },
+  {
+    name: 'AI-Ready Brand Systems',
+    body: 'AI needs brand foundations in a form it can actually use. I take your foundations and develop them into a structured brand system you import straight into your AI tools. No explaining your brand from scratch in every prompt, no output that sounds like everyone else. Best for founders and brand managers who don’t have the time (or enough AI shits to give) but need it done.',
+    deliverables: ['AI brand and content audit', 'Your brand foundations built out into an AI-ready format you can import', 'A custom GPT or assistant, loaded with your brand and built in your own workspace', 'Prompt-ready voice and messaging files for your team'],
+  },
+];
+
+const proof = [
+  { name: 'Coworking-Retreat Startup', body: 'Brand manager from ideation through launch & scaling. Brand foundations, communications strategy & all content including website, blogs, videos, live presentations, plus community building.' },
+  { name: 'Luxury Crystal Retail & Event Space', body: 'Brand foundations including visual and verbal identities, audience and competitor research, positioning, messaging. Launch comms and campaign strategies, and full content-suite including website and asset library creation.' },
+  { name: 'Byron Bay Wellness Brand', body: 'Launch strategy, brand architecture, customer journeys, content creation and project management for a Byron Bay wellness brand readying its at-home infrared sauna range for market.' },
+  { name: 'Rebrand & Launch', body: 'Full rebrand of an established and much-loved Australian herbal brand — new visual identity, brand language and positioning across all channels, paired with a complex dual-site build. Complete communications strategy for evolution without losing loyal base.' },
+  { name: 'Strategic Branding Agency', body: "Embedded consultant working across Zadro's corporate client portfolio: positioning, messaging, brand language, channel and content strategy, campaign development, executive comms, social media and newsletters. A senior strategic voice scaled across multiple accounts." },
+  { name: 'Regenerative Farming Equipment', body: 'Full brand foundations build for an Australian regenerative farming equipment business — audience and competitor research, verbal and visual identity, comms strategy, website, launch content and copy, social campaign assets, project management across the rollout.' },
+  { name: 'Conservation Brand Architecture', body: 'Brand architecture, strategy, verbal and visual identity, comms strategy and PR for an Australian conservation not-for-profit and its two flagship initiatives, Rainforest Rangers and Save the Daintree.' },
+  { name: 'Pasture-Raised Organic Eggs', body: 'Ongoing brand and communications consultancy for an Australian sustainable farming business — positioning, brand storytelling, content and channel comms for a pasture-raised organic egg producer in a category where genuine differentiation has to do real work.' },
+  { name: 'Brand Foundations & Launch', body: 'Brand foundations build for Golf365: positioning, brand language, launch campaign strategy and content.' },
+  { name: 'Mobile Social Engagement Platform', body: 'Led the communications function for a Barcelona-based mobile engagement tech platform — internal and external comms, PR, brand strategy and consistency, copy and content. Strategy and execution across a multinational team and a fast-moving product.' },
+];
+
+const logos = [
+  ['coworkation', 'Coworkation'], ['quartz', 'Quartz'], ['helsi', 'Helsi'], ['happy-herb-co', 'Happy Herb Co'],
+  ['zadro', 'Zadro'], ['tinkera', 'Tinkera'], ['gondwana', 'Gondwana Rainforest Trust, Rainforest Rangers and Save the Daintree'],
+  ['olivers-hens', "Oliver's Hens"], ['golf365', 'Golf365 Performance Studio'], ['jet8', 'Jet8'],
+];
+
+const testimonials = [
+  { quote: "Kirsty handled the brand building and launch of Golf365 with clarity and ease. She's strategic, creative, and good at translating founder! We launched with a structured and confident brand. I'd work with her again in a heartbeat.", who: 'Evie Graham, Founder, Golf365 Performance Studio' },
+  { quote: "I've worked with Kirsty on two of my businesses. She's great at working out priorities and just getting the work done. She gets who I am and knows how to capture my vibe, but always with an eye on who we're actually trying to reach and what the business needs to achieve.", who: 'Oliver Bora, Founder, Tinkera, Oliver’s Hens' },
+  { quote: 'I had the pleasure of working with Kirsty for several years. Not only is she an absolute delight to work with, her strategic thinking and holistic approach to projects is so valuable. In addition, her curiosity and interest in broad topics and innovation is a real asset. I hope to work together again!', who: 'Marlise Beasley, General Manager/Account Director, Zadro' },
+];
+---
+<Base
+  title="Brand & Communications Consulting — Punk Lotus"
+  description="Honest brand and communications consulting for creative founders. Strategy, messaging, and visual identity built from the foundations up."
+>
+  <section class="hero hero--center">
+    <div class="wrap center">
+      <h1>The Work</h1>
+      <p class="lede">Brand and communications consulting for creative founders.</p>
+      <a href="#contact" class="btn">Enquire Now</a>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="wrap">
+      <h2>Services scoped to fit.</h2>
+      <div class="services">
+        {services.map((s) => (
+          <article class="service">
+            <h3>{s.name}</h3>
+            <p>{s.body}</p>
+            <p class="label">Common deliverables:</p>
+            <ul>{s.deliverables.map((d) => <li>{d}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap">
+      <h2>Proof.</h2>
+      <ul class="logos">
+        {logos.map(([file, alt]) => <li><img src={`/images/clients/${file}.png`} alt={alt} loading="lazy" width="160" height="160" /></li>)}
+      </ul>
+      <div class="proof">
+        {proof.map((p) => (
+          <article>
+            <h3>{p.name}</h3>
+            <p>{p.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap quotes">
+      {testimonials.map((t) => (
+        <figure>
+          <blockquote><p>{t.quote}</p></blockquote>
+          <figcaption>{t.who}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--white" id="contact">
+    <div class="wrap contact">
+      <div>
+        <h2>Let’s Talk</h2>
+        <p>Send a few lines about your business and what you're trying to figure out, and I'll come back to set up a call.</p>
+        <p><a href="mailto:kt@punklotus.com">kt@punklotus.com</a><br /><a href="tel:+61468825419">+61 (0)468 825 419</a></p>
+      </div>
+      <ContactForm name="enquiry" variant="enquiry" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .center { text-align: center; }
+  .center .lede { margin-bottom: 1.4em; }
+  .services { display: grid; gap: 48px; }
+  .service { border-top: 3px solid var(--charcoal); padding-top: 24px; max-width: 80ch; }
+  .label { font-family: var(--font-ui); font-weight: 700; margin-bottom: .4em; }
+  .service ul { margin: 0; padding-left: 1.2em; }
+  .logos { list-style: none; padding: 0; margin: 0 0 56px; display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); align-items: center; }
+  .logos img { width: 100%; max-width: 160px; margin: 0 auto; aspect-ratio: 1; object-fit: contain; }
+  .proof { display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .proof h3 { font-size: 1.15rem; color: var(--charcoal); }
+  .quotes { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  figure { margin: 0; }
+  blockquote { margin: 0 0 1em; color: var(--cream); }
+  figcaption { font-family: var(--font-ui); font-weight: 700; color: var(--orange); }
+  .contact { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
+  .contact a { color: var(--charcoal); font-weight: 700; }
+</style>

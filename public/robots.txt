@@ -1,0 +1,5 @@
+# Search engines and AI assistants are welcome here.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.punklotus.com/sitemap-index.xml

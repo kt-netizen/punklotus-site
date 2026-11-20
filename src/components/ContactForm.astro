@@ -1,0 +1,32 @@
+---
+// Netlify Forms: submissions appear in the Netlify dashboard and are emailed to kt@punklotus.com
+// (set the email notification in Netlify → Forms once the site is connected).
+interface Props {
+  name: string;          // form name as it appears in Netlify
+  variant?: 'contact' | 'enquiry';
+}
+const { name, variant = 'contact' } = Astro.props;
+---
+<form name={name} method="POST" action="/thanks" data-netlify="true" netlify-honeypot="company-website" class="form">
+  <input type="hidden" name="form-name" value={name} />
+  <p class="hp"><label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label></p>
+  <label>Name <input type="text" name="name" autocomplete="name" required /></label>
+  <label>Email <input type="email" name="email" autocomplete="email" required /></label>
+  {variant === 'enquiry' && <label>Phone <input type="tel" name="phone" autocomplete="tel" /></label>}
+  <label>{variant === 'enquiry' ? 'Project details' : 'Message'}
+    <textarea name="message" rows="5" required></textarea>
+  </label>
+  <button type="submit" class="btn">Send</button>
+</form>
+
+<style>
+  .form { display: grid; gap: 18px; max-width: 560px; font-family: var(--font-ui); }
+  label { display: grid; gap: 6px; font-weight: 700; font-size: .9rem; }
+  input, textarea {
+    font: inherit; font-weight: 400; font-family: var(--font-body); padding: 12px 14px;
+    border: 2px solid currentColor; background: transparent; color: inherit; border-radius: 0; width: 100%;
+  }
+  input:focus-visible, textarea:focus-visible { outline: 3px solid var(--orange); outline-offset: 1px; }
+  .hp { position: absolute; left: -9999px; }
+  button { justify-self: start; }
+</style>

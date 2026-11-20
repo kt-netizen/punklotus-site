@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).href;
+const path = Astro.url.pathname.replace(/\/$/, '');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Punk Lotus',
+  url: 'https://www.punklotus.com',
+  logo: 'https://www.punklotus.com/images/punklotus-logo-white.png',
+  description: 'Senior brand strategy and communications consulting for creative founders.',
+  email: 'kt@punklotus.com',
+  telephone: '+61468825419',
+  founder: { '@type': 'Person', name: 'Kirsty Thompson', jobTitle: 'Brand and communications strategist' },
+  address: { '@type': 'PostalAddress', addressRegion: 'NSW', addressCountry: 'AU' },
+  areaServed: 'AU',
+};
+---
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Punk Lotus" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://www.punklotus.com/images/punklotus_bg_sprocket.jpg" />
+    <meta name="google-site-verification" content="VxHewMh27EQ1BcsQDKpMm467BLlGfBtVvNXT9Uv8Diw" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Climate+Crisis&family=Noto+Sans+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a href="/" class="logo" aria-label="Punk Lotus home">
+          <img src="/images/punklotus-logo-white.png" alt="Punk Lotus" width="160" height="160" />
+        </a>
+        <nav aria-label="Main">
+          <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a>
+          <a href="/brandconsulting" aria-current={path === '/brandconsulting' ? 'page' : undefined}>The Work</a>
+          <a href="#contact" class="btn">Get in Touch</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Punk Lotus · Kirsty Thompson · Northern Rivers, NSW</p>
+        <p><a href="mailto:kt@punklotus.com">kt@punklotus.com</a> · <a href="tel:+61468825419">0468 825 419</a></p>
+        <p class="small">© {new Date().getFullYear()} Punk Lotus</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 16px; top: 16px; z-index: 10; background: var(--orange); color: var(--black); padding: 8px 12px; }
+  .site-header { background: var(--black); position: sticky; top: 0; z-index: 5; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; padding-bottom: 12px; }
+  .logo img { width: clamp(96px, 14vw, 150px); height: auto; }
+  nav { display: flex; align-items: center; gap: clamp(12px, 3vw, 32px); font-family: var(--font-ui); }
+  nav a:not(.btn) { color: var(--white); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .85rem; }
+  nav a:not(.btn):hover, nav a[aria-current='page'] { color: var(--orange); }
+  @media (max-width: 520px) { nav .btn { display: none; } }
+  .site-footer { background: var(--black); color: var(--cream); padding: 40px 0; font-family: var(--font-ui); font-size: .9rem; }
+  .site-footer p { margin: 0 0 .4em; }
+  .small { opacity: .7; font-size: .8rem; }
+</style>

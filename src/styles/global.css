@@ -1,0 +1,48 @@
+:root {
+  --orange: #F48847;
+  --charcoal: #282D30;
+  --black: #000000;
+  --cream: #E9CEB0;
+  --white: #FFFFFF;
+  --font-display: 'Climate Crisis', 'Archivo', sans-serif;
+  --font-body: 'Noto Sans Mono', ui-monospace, monospace;
+  --font-ui: 'Archivo', system-ui, sans-serif;
+  --gutter: clamp(20px, 5vw, 64px);
+  --max: 1200px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--charcoal); color: var(--white);
+  font-family: var(--font-body); font-size: 1rem; line-height: 1.7;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--orange); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.1; margin: 0 0 .6em; color: var(--orange); }
+h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(1.8rem, 4.5vw, 3.2rem); }
+h3 { font-size: clamp(1.3rem, 3vw, 2rem); }
+p { margin: 0 0 1.1em; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.section { padding: clamp(56px, 9vw, 120px) 0; }
+.section--dark { background: var(--charcoal); }
+.section--cream { background: var(--cream); color: var(--charcoal); }
+.section--cream h1, .section--cream h2, .section--cream h3 { color: var(--charcoal); }
+.section--white { background: var(--white); color: var(--charcoal); }
+.section--white h2, .section--white h3 { color: var(--charcoal); }
+.hero {
+  position: relative; min-height: 72vh; display: flex; align-items: center;
+  background: var(--black) url('/images/punklotus_bg_sprocket.jpg') center / cover no-repeat;
+}
+.hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.35); }
+.hero .wrap { position: relative; width: 100%; }
+.hero h1 { text-align: right; }
+.hero--center h1 { text-align: center; }
+.lede { color: var(--cream); font-family: var(--font-display); font-size: clamp(1.2rem, 2.6vw, 1.7rem); line-height: 1.3; }
+.btn {
+  display: inline-block; font-family: var(--font-ui); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; font-size: .9rem; text-decoration: none;
+  background: var(--orange); color: var(--black); padding: .9em 1.6em; border: 0; border-radius: 0; cursor: pointer;
+}
+.btn:hover, .btn:focus-visible { background: var(--cream); }
+.measure { max-width: 68ch; }
