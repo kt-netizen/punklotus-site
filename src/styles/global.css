@@ -54,7 +54,7 @@ p { margin: 0 0 1em; }
   width: clamp(220px, 34vw, 460px); aspect-ratio: 1; right: clamp(-140px, -8vw, -60px); bottom: clamp(-140px, -8vw, -60px); border-radius: 50%;
   background: repeating-radial-gradient(circle, transparent 0 18px, rgba(244,136,71,.28) 18px 26px);
 }
-.section--orange::after { background: repeating-radial-gradient(circle, transparent 0 18px, rgba(90,26,31,.14) 18px 26px); left: clamp(-140px, -8vw, -60px); right: auto; top: 0; bottom: auto; transform: translateY(-35%); }
+.section--orange::after { background: repeating-radial-gradient(circle, transparent 0 18px, rgba(90,26,31,.14) 18px 26px); left: clamp(-140px, -8vw, -60px); right: auto; top: clamp(-120px, -6vw, -50px); bottom: auto; clip-path: inset(clamp(50px, 6vw, 120px) 0 0 0); }
 .section > .wrap { position: relative; z-index: 2; }
 
 /* two-column: heading left, copy right — collapses on small screens */
