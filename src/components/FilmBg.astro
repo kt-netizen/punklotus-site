@@ -18,7 +18,7 @@ const { clip, treatment = 'mono', strength = 0.45, eager = false } = Astro.props
   .film video { width: 100%; height: 100%; object-fit: cover; opacity: var(--strength); }
   .film--mono video { filter: grayscale(1) contrast(1.3) brightness(.8); }
   .film--warm video { filter: grayscale(1) sepia(1) saturate(2.2) hue-rotate(-12deg) contrast(1.2) brightness(.75); }
-  .film--screen video { mix-blend-mode: screen; filter: grayscale(.3) contrast(1.4); }
+  .film--screen video { mix-blend-mode: screen; filter: sepia(.6) saturate(1.4) hue-rotate(-15deg) contrast(1.3); }
 </style>
 
 <script>

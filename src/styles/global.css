@@ -1,14 +1,15 @@
 :root {
   --orange: #F48847;
-  --orange-deep: #B4501A;
-  --charcoal: #282D30;
-  --black: #000000;
-  --cream: #E9CEB0;
-  --cream-light: #F5E8D8;
+  --orange-deep: #A8441A;
+  --charcoal: #5A1A1F;   /* oxblood: text + dark sections */
+  --black: #3B0F14;      /* deep oxblood: header, hero, darkest moments */
+  --cream: #EBD3B8;
+  --cream-light: #F6EBDD;
   --white: #FFFFFF;
-  --font-display: 'Climate Crisis', 'Archivo', sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Noto Sans Mono', ui-monospace, monospace;
   --font-ui: 'Archivo', system-ui, sans-serif;
+  --font-hand: 'Covered By Your Grace', cursive;  /* stand-in until Kirsty's own handwriting font */
   --gutter: clamp(16px, 4vw, 56px);
   --max: 1280px;
   --pad: clamp(40px, 6vw, 80px);
@@ -22,7 +23,7 @@ body {
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration-color: var(--orange); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.08; margin: 0 0 .5em; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; font-variation-settings: 'SOFT' 100, 'WONK' 1; line-height: 1.08; margin: 0 0 .5em; }
 h1 { font-size: clamp(2rem, 4.6vw, 3.6rem); }
 h2 { font-size: clamp(1.5rem, 3vw, 2.4rem); }
 h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); }
@@ -42,11 +43,11 @@ p { margin: 0 0 1em; }
 @media (max-width: 800px) { .split { grid-template-columns: 1fr; } }
 @media (min-width: 801px) { .split > .stick { position: sticky; top: 140px; } }
 
-.lede { font-family: var(--font-display); font-size: clamp(1.2rem, 2.4vw, 1.7rem); line-height: 1.25; }
+.lede { font-family: var(--font-display); font-weight: 700; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-size: clamp(1.2rem, 2.4vw, 1.7rem); line-height: 1.25; }
 .btn {
   display: inline-block; font-family: var(--font-ui); font-weight: 700; text-transform: uppercase;
   letter-spacing: .06em; font-size: .9rem; text-decoration: none; line-height: 1.2;
-  background: var(--orange); color: var(--black); padding: .95em 1.6em; border: 2px solid var(--orange); border-radius: 0; cursor: pointer;
+  background: var(--orange); color: var(--black); padding: .95em 1.6em; border: 2px solid var(--orange); border-radius: 999px; cursor: pointer;
   transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
 }
 .btn:hover, .btn:focus-visible { background: var(--black); color: var(--orange); transform: translate(-3px, -3px); box-shadow: 3px 3px 0 var(--orange); }
@@ -55,8 +56,9 @@ p { margin: 0 0 1em; }
 .section--orange .btn:hover { background: var(--cream); color: var(--black); box-shadow: 3px 3px 0 var(--black); }
 
 /* coloured phrases: marker highlight */
-.hl { background: linear-gradient(transparent 55%, var(--orange) 55%); padding: 0 .1em; }
-.section--dark .hl { background: none; color: var(--orange); }
+.hl { color: var(--orange-deep); text-decoration: underline wavy var(--orange); text-decoration-thickness: 2px; text-underline-offset: 6px; text-decoration-skip-ink: none; }
+.section--dark .hl, .section--orange .hl { color: inherit; }
+.section--orange .hl { text-decoration-color: var(--black); }
 
 .more { font-family: var(--font-ui); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .9rem; text-decoration: none; border-bottom: 2px solid var(--orange); }
 .more:hover { color: var(--orange-deep); }
@@ -69,4 +71,13 @@ p { margin: 0 0 1em; }
   html { scroll-behavior: auto; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .btn { transition: none; }
+}
+
+/* handwritten asides */
+.hand { font-family: var(--font-hand); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.15; text-transform: none; letter-spacing: .02em; display: inline-block; transform: rotate(-2.5deg); }
+
+/* print grain over everything */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .18; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.06 0 0 0 0 0.08 0 0 0 1.2 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

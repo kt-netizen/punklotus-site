@@ -5,7 +5,7 @@ interface Props { title: string; sub?: string }
 const { title, sub } = Astro.props;
 ---
 <section class="hero">
-  <FilmBg clip="film-burns-hd-001" treatment="screen" strength={0.85} eager />
+  <FilmBg clip="film-burns-hd-001" treatment="screen" strength={0.7} eager />
   <div class="wrap">
     <h1>{title}</h1>
     {sub && <p class="sub">{sub}</p>}
@@ -19,10 +19,10 @@ const { title, sub } = Astro.props;
     min-height: clamp(300px, 50vh, 500px); display: flex; align-items: flex-end;
     padding: clamp(48px, 8vw, 96px) 0 clamp(32px, 5vw, 56px);
   }
-  .hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,0) 65%); }
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(to top, rgba(59,15,20,.92) 0%, rgba(59,15,20,.6) 55%, rgba(59,15,20,.25) 100%); }
   .wrap { position: relative; z-index: 1; width: 100%; }
-  h1 { color: var(--orange); max-width: 20ch; }
-  .sub { color: var(--cream); font-family: var(--font-ui); font-size: clamp(1rem, 1.8vw, 1.25rem); max-width: 56ch; }
+  h1 { color: var(--cream-light); max-width: 20ch; text-shadow: 0 2px 18px rgba(59,15,20,.9); }
+  .sub { color: var(--cream); text-shadow: 0 1px 10px rgba(59,15,20,.9); font-family: var(--font-ui); font-size: clamp(1rem, 1.8vw, 1.25rem); max-width: 56ch; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
   .ctas:empty { display: none; }
 </style>

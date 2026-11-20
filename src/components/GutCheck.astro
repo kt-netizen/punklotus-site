@@ -5,9 +5,10 @@
 ---
 <section class="section section--orange gut">
   <div class="wrap split reveal">
-    <div>
-      <p class="eyebrow">Start here</p>
+    <div class="gc-head">
+      <p class="hand">Start here</p>
       <h2>The Brand Gut-Check</h2>
+      <span class="sticker" aria-hidden="true">$350<small>no strings</small></span>
     </div>
     <div>
       <p class="lede">An honest read on your brand before you commit to anything bigger.</p>
@@ -18,6 +19,15 @@
 </section>
 
 <style>
-  .eyebrow { font-family: var(--font-ui); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .4em; }
-  .gut h2 { margin: 0; }
+  .gut h2 { margin: .2em 0 0; }
+  .gc-head { position: relative; padding-right: 120px; }
+  .sticker {
+    position: absolute; right: 0; top: -12px; width: 112px; height: 112px; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--black); color: var(--cream-light); transform: rotate(12deg);
+    font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1;
+    box-shadow: 4px 4px 0 var(--cream-light);
+  }
+  .sticker small { font-family: var(--font-hand); font-weight: 400; font-size: 1rem; color: var(--orange); }
+  @media (max-width: 800px) { .gc-head { padding-right: 100px; } .sticker { width: 88px; height: 88px; font-size: 1.4rem; } }
 </style>
