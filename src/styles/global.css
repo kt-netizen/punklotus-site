@@ -32,7 +32,7 @@ p { margin: 0 0 1em; }
 .section { padding: var(--pad) 0; }
 
 /* section colours: cream-led, orange for punctuation, oxblood for depth.
-   Each section fades gently top-to-bottom, and coloured sections rise into the one above on a wavy edge. */
+   Each section fades gently top-to-bottom. (Wavy edges and rings removed 20 Nov: Kirsty's drawings will carry the decoration.) */
 .section { position: relative; overflow-x: clip; --bg: var(--cream-light); background: var(--bg); }
 .section--light { --bg: var(--cream-light); background: linear-gradient(180deg, var(--cream-light) 0%, #F2E1CC 100%); }
 .section--cream { --bg: var(--cream); background: linear-gradient(180deg, var(--cream) 0%, #E4C3A0 100%); }
@@ -40,21 +40,6 @@ p { margin: 0 0 1em; }
 .section--orange { --bg: var(--orange); background: linear-gradient(160deg, #F79A5E 0%, var(--orange) 45%, #EC7A37 100%); color: var(--black); }
 .section--dark { --bg: var(--charcoal); background: linear-gradient(180deg, var(--charcoal) 0%, var(--black) 100%); color: var(--white); }
 
-/* wavy top edge, drawn in the section's own starting colour */
-.section--cream::before, .section--orange::before, .section--dark::before, .section--white::before {
-  content: ''; position: absolute; left: 0; right: 0; top: -28px; height: 30px; background: var(--bg); z-index: 1; pointer-events: none;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30' preserveAspectRatio='none'%3E%3Cpath d='M0 30 V18 C20 4 40 4 60 18 S100 32 120 18 V30 Z'/%3E%3C/svg%3E") 0 0 / 240px 100% repeat-x;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30' preserveAspectRatio='none'%3E%3Cpath d='M0 30 V18 C20 4 40 4 60 18 S100 32 120 18 V30 Z'/%3E%3C/svg%3E") 0 0 / 240px 100% repeat-x;
-}
-.section--orange::before { background: #F79A5E; }
-
-/* retro motif: a faint concentric "sun" ring sitting in the corner of cream and orange sections */
-.section--cream::after, .section--orange::after {
-  content: ''; position: absolute; z-index: 0; pointer-events: none;
-  width: clamp(220px, 34vw, 460px); aspect-ratio: 1; right: clamp(-140px, -8vw, -60px); bottom: clamp(-140px, -8vw, -60px); border-radius: 50%;
-  background: repeating-radial-gradient(circle, transparent 0 18px, rgba(244,136,71,.28) 18px 26px);
-}
-.section--orange::after { background: repeating-radial-gradient(circle, transparent 0 18px, rgba(90,26,31,.14) 18px 26px); left: clamp(-140px, -8vw, -60px); right: auto; top: clamp(-120px, -6vw, -50px); bottom: auto; clip-path: inset(clamp(50px, 6vw, 120px) 0 0 0); }
 .section > .wrap { position: relative; z-index: 2; }
 
 /* two-column: heading left, copy right — collapses on small screens */
