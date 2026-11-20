@@ -109,7 +109,7 @@ const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFo
 
   <section class="section section--orange">
     <div class="wrap">
-      <Carousel label="Testimonials" perView={1}>
+      <Carousel label="Testimonials" perView={2}>
         {testimonials.map((t) => (
           <li>
             <figure>
@@ -155,7 +155,7 @@ const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFo
   .card img { width: 120px; height: 120px; object-fit: contain; margin-bottom: 16px; }
   .card h3 { font-size: 1.05rem; }
   .card p { font-size: .92rem; margin: 0; }
-  figure { margin: 0; max-width: 62ch; }
+  figure { margin: 0; }
   blockquote { margin: 0 0 1em; font-size: clamp(1.05rem, 2vw, 1.35rem); }
   figcaption { font-family: var(--font-ui); font-weight: 700; }
   @media (prefers-reduced-motion: reduce) { .card, summary, .toggle::before, .toggle::after { transition: none; } .card:hover { transform: none; } }

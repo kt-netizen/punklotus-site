@@ -1,11 +1,19 @@
 ---
-// Page header with the film-burn loop behind it. One per page.
+// Page header. One per page. `bg` picks the background:
+//   film     — warm film-burn video loop
+//   sunburst — 70s rays turning slowly behind a rising orange sun
+//   groovy   — retro striped arcs (orange / cream / oxblood) that drift
+//   halftone — bold print halftone dots that slide slowly
 import FilmBg from './FilmBg.astro';
-interface Props { title: string; sub?: string }
-const { title, sub } = Astro.props;
+type Bg = 'film' | 'sunburst' | 'groovy' | 'halftone';
+interface Props { title: string; sub?: string; bg?: Bg }
+const { title, sub, bg = 'film' } = Astro.props;
 ---
-<section class="hero">
-  <FilmBg clip="film-burns-hd-001" treatment="screen" strength={0.7} eager />
+<section class={`hero hero--${bg}`}>
+  {bg === 'film' && <FilmBg clip="film-burns-hd-001" treatment="screen" strength={0.7} eager />}
+  {bg === 'sunburst' && <div class="art sunburst" aria-hidden="true"><div class="rays"></div><div class="sun"></div></div>}
+  {bg === 'groovy' && <div class="art groovy" aria-hidden="true"><div class="arcs"></div><div class="arcs arcs--2"></div></div>}
+  {bg === 'halftone' && <div class="art halftone" aria-hidden="true"><div class="dots"></div><div class="blob"></div></div>}
   <div class="wrap">
     <h1>{title}</h1>
     {sub && <p class="sub">{sub}</p>}
@@ -19,10 +27,56 @@ const { title, sub } = Astro.props;
     min-height: clamp(300px, 50vh, 500px); display: flex; align-items: flex-end;
     padding: clamp(48px, 8vw, 96px) 0 clamp(32px, 5vw, 56px);
   }
-  .hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(to top, rgba(59,15,20,.92) 0%, rgba(59,15,20,.6) 55%, rgba(59,15,20,.25) 100%); }
+  .hero--film::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(to top, rgba(59,15,20,.92) 0%, rgba(59,15,20,.6) 55%, rgba(59,15,20,.25) 100%); }
+  /* keep the words readable: darken behind the text side of the pattern headers */
+  .hero:not(.hero--film)::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(90deg, rgba(59,15,20,.96) 0%, rgba(59,15,20,.85) 38%, rgba(59,15,20,0) 72%); }
+  @media (max-width: 700px) { .hero:not(.hero--film)::after { background: linear-gradient(to top, rgba(59,15,20,.96) 0%, rgba(59,15,20,.85) 55%, rgba(59,15,20,.2) 100%); } }
   .wrap { position: relative; z-index: 1; width: 100%; }
   h1 { color: var(--cream-light); max-width: 20ch; text-shadow: 0 2px 18px rgba(59,15,20,.9); }
   .sub { color: var(--cream); text-shadow: 0 1px 10px rgba(59,15,20,.9); font-family: var(--font-ui); font-size: clamp(1rem, 1.8vw, 1.25rem); max-width: 56ch; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
   .ctas:empty { display: none; }
+
+  .art { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  /* 70s sunburst: rays fan out from a sun in the top-right corner */
+  .rays {
+    position: absolute; width: 260vmax; height: 260vmax; right: -130vmax; top: -130vmax;
+    background: repeating-conic-gradient(from 0deg, var(--charcoal) 0deg 7.5deg, var(--black) 7.5deg 15deg);
+    animation: spin 120s linear infinite;
+  }
+  .sun {
+    position: absolute; right: clamp(-90px, -6vw, -40px); top: clamp(-90px, -6vw, -40px);
+    width: clamp(200px, 30vw, 380px); aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle, var(--orange) 0 58%, var(--cream) 58% 66%, var(--orange) 66% 74%, transparent 74%);
+  }
+
+  /* groovy arcs: concentric retro stripes rising from the bottom-right */
+  .arcs {
+    position: absolute; right: -25vmax; bottom: -55vmax; width: 110vmax; height: 110vmax; border-radius: 50%;
+    background: repeating-radial-gradient(circle, var(--orange) 0 3.2vmax, var(--cream) 3.2vmax 4.6vmax, var(--charcoal) 4.6vmax 7.8vmax, var(--black) 7.8vmax 9.2vmax);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .arcs--2 { right: auto; left: -70vmax; bottom: auto; top: -80vmax; opacity: .35; animation-duration: 24s; }
+
+  /* halftone: bold print dots fading across the header, plus a flat orange shape */
+  .dots {
+    position: absolute; inset: -40px;
+    background: radial-gradient(circle, var(--orange) 38%, transparent 40%) 0 0 / 16px 16px;
+    -webkit-mask-image: linear-gradient(105deg, transparent 30%, #000 85%);
+    mask-image: linear-gradient(105deg, transparent 30%, #000 85%);
+    opacity: .9; animation: slide 30s linear infinite;
+  }
+  .blob {
+    position: absolute; right: 8%; top: 12%; width: clamp(140px, 22vw, 300px); aspect-ratio: 1;
+    background: var(--cream); border-radius: 62% 38% 55% 45% / 48% 60% 40% 52%;
+    mix-blend-mode: multiply; opacity: .9; animation: wobble 14s ease-in-out infinite alternate;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes drift { to { transform: translate(-3vmax, -2vmax) rotate(4deg); } }
+  @keyframes slide { to { transform: translate(16px, 16px); } }
+  @keyframes wobble { to { border-radius: 40% 60% 45% 55% / 60% 40% 58% 42%; transform: rotate(14deg); } }
+  @media (prefers-reduced-motion: reduce) { .rays, .arcs, .dots, .blob { animation: none; } }
+  @media (max-width: 700px) { .hero--halftone .blob { opacity: .5; } .sun { opacity: .7; } }
 </style>
