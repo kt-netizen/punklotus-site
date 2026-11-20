@@ -56,6 +56,7 @@ const schema = {
         <nav aria-label="Main">
           <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a>
           <a href="/brandconsulting" aria-current={path === '/brandconsulting' ? 'page' : undefined}>The Work</a>
+          <a href="/gut-check" aria-current={path === '/gut-check' ? 'page' : undefined}>Gut-Check</a>
           <a href="#contact" class="btn">Get in Touch</a>
         </nav>
       </div>
@@ -71,6 +72,7 @@ const schema = {
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/brandconsulting">The Work</a>
+            <a href="/gut-check">Gut-Check</a>
             <a href="https://www.linkedin.com/in/kirstythompsononline/" rel="noopener">LinkedIn</a>
           </nav>
           <p>Kirsty Thompson · Northern Rivers, NSW · working with businesses Australia-wide</p>
@@ -101,7 +103,7 @@ const schema = {
   nav { display: flex; align-items: center; gap: clamp(12px, 3vw, 32px); font-family: var(--font-ui); }
   .bar nav a:not(.btn) { color: var(--white); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .85rem; }
   .bar nav a:not(.btn):hover, .bar nav a[aria-current='page'] { color: var(--orange); }
-  @media (max-width: 560px) { nav .btn { display: none; } }
+  @media (max-width: 560px) { nav .btn { display: none; } .bar nav { gap: 12px; } .bar nav a:not(.btn) { font-size: .72rem; letter-spacing: .03em; } .logo img { height: 34px; } }
   .site-footer { background: var(--orange); color: var(--black); padding: 48px 0; font-family: var(--font-ui); font-size: .95rem; }
   .foot { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; justify-content: space-between; }
   .foot-logo { height: 56px; width: auto; filter: brightness(0); opacity: .85; }

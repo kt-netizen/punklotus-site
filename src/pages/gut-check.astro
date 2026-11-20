@@ -1,0 +1,153 @@
+---
+// The Brand Gut-Check: landing page + intake form.
+// Copy: PUNK LOTUS/gut-check/gut-check-landing-copy-2026-08-04.md (v1, Kirsty-approved 19 Aug).
+// Questions: PUNK LOTUS/gut-check/gut-check-intake-questions-2026-08-04.md (locked, eleven) — edit there first.
+// Payment: no online checkout. Submission → Netlify Forms email → Kirsty invoices (Harvest/Xero) → read starts once paid.
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+
+const questions = [
+  'What do you do, and who for? The way you’d explain it to a friend, not the networking version.',
+  'What’s bugging you, where’s the disconnect? What about your brand doesn’t feel right or doesn’t feel true to you?',
+  'Describe the client you’d clone and the client you wish would fade away.',
+  'What do people get wrong about what you do or who you’re for?',
+  'What are you best at that you never talk about?',
+  'What are you doing because you think you’re supposed to?',
+  'Whose brand do you look at and think, they’ve nailed it? Doesn’t have to be your industry, it can be a vibe you love.',
+  'Where are enquiries coming from right now?',
+  'Do you have a brand strategy that includes a communication strategy?',
+  'What do you think you do really well in terms of brand communications?',
+];
+---
+<Base
+  title="The Brand Gut-Check — an honest read on your brand, $350 — Punk Lotus"
+  description="A straight read on your brand as it stands: a two-page written read and a short video, within a week. $350 AUD. Answer eleven questions, send your site and socials, and find the disconnect."
+>
+  <Hero title="Get an honest read on your brand." sub="You know something's off. I tell you what.">
+    <a class="btn" href="#start">Start your Gut-Check</a>
+  </Hero>
+
+  <section class="section section--light">
+    <div class="wrap split">
+      <div class="stick reveal">
+        <p class="price">$350 <span>AUD</span></p>
+        <p class="hand">Straight-up.</p>
+      </div>
+      <div class="reveal">
+        <p class="lede">The Gut-Check gives you a straight read on your brand as it stands, and points a finger at the weakest links.</p>
+        <p>Let's fix this dissonance in the matrix baby.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="wrap">
+      <h2 class="reveal">Why bother</h2>
+      <div class="three reveal">
+        <div class="card">
+          <h3>Be honest with yourself</h3>
+          <p>Lay it on me: send your site, socials, a newsletter, advertising, and any branded assets you've got handy. Answer the eleven questions below — honestly.</p>
+        </div>
+        <div class="card">
+          <h3>What you get</h3>
+          <p>A detailed two-page read and a short video from me. We look at what's working, what doesn't, and I'll find the disconnect between what you want and where you are.</p>
+        </div>
+        <div class="card">
+          <h3>Turnaround</h3>
+          <p>Within a week.</p>
+        </div>
+      </div>
+      <p class="hand truth reveal">You want the truth?! You can handle it.</p>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="wrap split">
+      <div class="stick reveal"><h2>How it works</h2></div>
+      <ol class="how reveal">
+        <li><span class="num">01</span><p>You answer eleven questions and send me your site, socials, newsletter, advertising, and anything else worth a look.</p></li>
+        <li><span class="num">02</span><p>I review your brand universe and your honest answers.</p></li>
+        <li><span class="num">03</span><p>You get a Gut-Check read: what's working, what's not, and what to fix first. Kept high-level — enough to show you exactly where you're off, and where you could start.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--white" id="start">
+    <div class="wrap">
+      <div class="form-head reveal">
+        <h2>Start your Gut-Check</h2>
+        <p>Fill in the form and I'll send you an invoice. Your Gut-Check lands in your inbox within a week of payment.</p>
+      </div>
+
+      <form name="gut-check" method="POST" action="/gut-check-thanks" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company-website" class="gc-form">
+        <input type="hidden" name="form-name" value="gut-check" />
+        <p class="hp"><label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label></p>
+
+        <fieldset>
+          <legend>You</legend>
+          <label>Your name <input type="text" name="name" autocomplete="name" required /></label>
+          <label>Email <input type="email" name="email" autocomplete="email" required /></label>
+          <label>Business name <input type="text" name="business" autocomplete="organization" required /></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>The eleven</legend>
+          <label>
+            <span class="q"><span class="qn">1</span> Your site, your socials, an example of your newsletter, advertising, and anything else you want me to look at.</span>
+            <textarea name="q1_links" rows="4" placeholder="Paste links — site, Instagram, Facebook, LinkedIn, newsletter, ads, anything else." required></textarea>
+          </label>
+          <label class="file">
+            Got screenshots or files instead of links? Attach them here — images or PDFs (up to 8MB in total).
+            <input type="file" name="q1_files" multiple accept="image/*,application/pdf" />
+          </label>
+          {questions.map((q, i) => (
+            <label>
+              <span class="q"><span class="qn">{i + 2}</span> {q}</span>
+              <textarea name={`q${i + 2}`} rows="4" required></textarea>
+            </label>
+          ))}
+        </fieldset>
+
+        <button type="submit" class="btn">Send it through</button>
+        <p class="fine">No payment now. I'll send an invoice for $350 AUD within one business day, and your read starts once it's paid.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--orange" id="contact">
+    <div class="wrap reveal">
+      <h2>It's ok to ask for help</h2>
+      <p class="hand">It's literally my job.</p>
+      <p>Start above, or if you'd rather talk first — <a href="mailto:kt@punklotus.com">kt@punklotus.com</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .price { font-family: var(--font-display); font-weight: 800; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-size: clamp(3rem, 7vw, 5rem); line-height: 1; margin: 0 0 .1em; color: var(--charcoal); }
+  .price span { font-size: .35em; font-family: var(--font-ui); letter-spacing: .08em; }
+  .hand { color: var(--orange-deep); }
+  .section--orange .hand { color: var(--black); }
+  .three { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card { background: var(--cream-light); border-top: 4px solid var(--orange); padding: 24px; }
+  .card p { margin: 0; }
+  .truth { margin-top: 32px; }
+  .how { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+  .how li { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: baseline; }
+  .how p { margin: 0; }
+  .num { font-family: var(--font-display); font-weight: 700; color: var(--orange-deep); font-size: 2rem; line-height: 1; }
+  .form-head { max-width: 60ch; margin-bottom: 32px; }
+  .gc-form { max-width: 760px; display: grid; gap: 32px; font-family: var(--font-ui); }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 22px; }
+  legend { font-family: var(--font-display); font-weight: 700; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-size: 1.5rem; margin-bottom: 12px; color: var(--charcoal); }
+  label { display: grid; gap: 8px; font-weight: 700; font-size: .95rem; }
+  .q { display: flex; gap: 12px; align-items: baseline; }
+  .qn { flex: none; width: 1.8em; height: 1.8em; display: inline-grid; place-items: center; border-radius: 50%; background: var(--orange); color: var(--black); font-size: .85rem; }
+  input, textarea { font: inherit; font-weight: 400; font-family: var(--font-body); padding: 12px 14px; border: 2px solid var(--charcoal); background: var(--cream-light); color: var(--charcoal); border-radius: 0; width: 100%; }
+  input[type='file'] { background: transparent; border-style: dashed; }
+  input:focus-visible, textarea:focus-visible { outline: 3px solid var(--orange); outline-offset: 1px; }
+  .file { font-weight: 400; }
+  .hp { position: absolute; left: -9999px; }
+  .gc-form .btn { justify-self: start; font-size: 1rem; }
+  .fine { font-size: .9rem; margin: -16px 0 0; }
+</style>
