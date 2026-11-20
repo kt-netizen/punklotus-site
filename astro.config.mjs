@@ -5,5 +5,5 @@ export default defineConfig({
   site: 'https://www.punklotus.com',
   trailingSlash: 'never',
   build: { format: 'file' },
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes("film-test") && !page.includes("thanks") })],
 });

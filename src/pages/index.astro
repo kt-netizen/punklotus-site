@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
+import Carousel from '../components/Carousel.astro';
 ---
 <Base
   title="Punk Lotus — Brand Consulting for Creative Founders"
@@ -20,24 +21,25 @@ import ContactForm from '../components/ContactForm.astro';
       <p>If you've outgrown your current brand, we rebrand it. If you're launching something new, we build the communication strategy to take it to market.</p>
       <p>If you're established and need ongoing strategic or general marketing support, that's what you get.</p>
       <p>This is about getting over the hump, and getting it done.</p>
+      <p><a class="more" href="/brandconsulting">See the work →</a> &nbsp; <a class="more" href="/about">About Kirsty →</a></p>
     </div>
   </section>
 
   <section class="section section--dark process">
     <div class="wrap">
       <h2>Process</h2>
-      <ol class="steps">
-        <li><span class="num">01</span><p>Together, we develop a plan that's realistic, strategic and personal. From there, you receive a clear proposal: scope, deliverables and different price points to choose from.</p></li>
-        <li><span class="num">02</span><p>The work is delivered in stages, with check-ins and approvals along the way. This keeps the strategy grounded in what you really need, and flexible to changes.</p></li>
-        <li><span class="num">03</span><p>The work comes to life. A brand launched, a campaign live, a rebrand rolled out, a website live. We can keep working together as you grow, or you carry it forward on your own.</p></li>
-      </ol>
+      <Carousel label="Process" perView={2} tone="dark">
+        <li class="step"><span class="num">01</span><p>Together, we develop a plan that's realistic, strategic and personal. From there, you receive a clear proposal: scope, deliverables and different price points to choose from.</p></li>
+        <li class="step"><span class="num">02</span><p>The work is delivered in stages, with check-ins and approvals along the way. This keeps the strategy grounded in what you really need, and flexible to changes.</p></li>
+        <li class="step"><span class="num">03</span><p>The work comes to life. A brand launched, a campaign live, a rebrand rolled out, a website live. We can keep working together as you grow, or you carry it forward on your own.</p></li>
+      </Carousel>
     </div>
   </section>
 
   <section class="section section--cream" id="contact">
     <div class="wrap contact">
       <div>
-        <h2>It’s ok to ask for help.<br />It’s literally my job.</h2>
+        <h2>It’s ok to ask for help.<br /><span class="plain">It’s literally my job.</span></h2>
         <p><a href="mailto:kt@punklotus.com">kt@punklotus.com</a><br /><a href="tel:+61468825419">0468 825 419</a></p>
       </div>
       <ContactForm name="contact-home" />
@@ -46,7 +48,8 @@ import ContactForm from '../components/ContactForm.astro';
 </Base>
 
 <style>
-  .steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .step { border-left: 3px solid var(--orange); padding: 8px 0 8px 24px; }
+  .plain { color: var(--charcoal); opacity: .75; }
   .num { display: block; font-family: var(--font-display); color: var(--orange); font-size: 2.4rem; margin-bottom: .3em; }
   .contact { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
   .contact a { color: var(--charcoal); font-weight: 700; }

@@ -19,8 +19,8 @@ body {
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--orange); }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.1; margin: 0 0 .6em; color: var(--orange); }
-h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); }
-h2 { font-size: clamp(1.8rem, 4.5vw, 3.2rem); }
+h1 { font-size: clamp(2rem, 4.6vw, 3.6rem); }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.6rem); }
 h3 { font-size: clamp(1.3rem, 3vw, 2rem); }
 p { margin: 0 0 1.1em; }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
@@ -31,7 +31,7 @@ p { margin: 0 0 1.1em; }
 .section--white { background: var(--white); color: var(--charcoal); }
 .section--white h2, .section--white h3 { color: var(--charcoal); }
 .hero {
-  position: relative; min-height: 72vh; display: flex; align-items: center;
+  position: relative; min-height: clamp(280px, 46vh, 460px); display: flex; align-items: center;
   background: var(--black) url('/images/punklotus_bg_sprocket.jpg') center / cover no-repeat;
 }
 .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.35); }
@@ -46,3 +46,13 @@ p { margin: 0 0 1.1em; }
 }
 .btn:hover, .btn:focus-visible { background: var(--cream); }
 .measure { max-width: 68ch; }
+
+/* coloured phrases carried over from the Squarespace copy */
+.hl { color: var(--orange); }
+.hl-light { color: var(--cream); }
+.section--cream .hl, .section--white .hl { color: #B4501A; }
+/* sections with a film-texture video behind them */
+.has-film { position: relative; isolation: isolate; overflow: hidden; }
+.has-film > .wrap { position: relative; z-index: 1; }
+.more { font-family: var(--font-ui); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: .9rem; text-decoration: none; }
+.more:hover { text-decoration: underline; }

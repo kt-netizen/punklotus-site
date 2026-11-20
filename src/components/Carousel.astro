@@ -1,0 +1,63 @@
+---
+// Horizontal scroll-snap carousel. Swipe/scroll on touch, arrow buttons on desktop.
+// Children should be <li> elements.
+interface Props {
+  label: string;           // accessible name, e.g. "Process"
+  perView?: number;        // cards visible on wide screens
+  tone?: 'light' | 'dark'; // colour of the arrow buttons
+}
+const { label, perView = 3, tone = 'light' } = Astro.props;
+---
+<div class={`carousel carousel--${tone}`} style={`--per-view:${perView}`} role="region" aria-roledescription="carousel" aria-label={label}>
+  <ul class="track" tabindex="0">
+    <slot />
+  </ul>
+  <div class="controls">
+    <button type="button" class="prev" aria-label={`Previous — ${label}`}>←</button>
+    <button type="button" class="next" aria-label={`Next — ${label}`}>→</button>
+  </div>
+</div>
+
+<style>
+  .carousel { position: relative; }
+  .track {
+    list-style: none; margin: 0; padding: 0 0 8px;
+    display: grid; grid-auto-flow: column; gap: 24px;
+    --pv: var(--per-view);
+    grid-auto-columns: calc((100% - (var(--pv) - 1) * 24px) / var(--pv));
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .track:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+  .track > :global(li) { scroll-snap-align: start; }
+  @media (max-width: 900px) { .track { --pv: min(var(--per-view), 2); } }
+  @media (max-width: 600px) { .track { grid-auto-columns: 88%; } }
+  .controls { display: flex; gap: 12px; margin-top: 24px; }
+  button {
+    width: 48px; height: 48px; border: 2px solid currentColor; background: transparent; color: inherit;
+    font-size: 1.3rem; cursor: pointer; border-radius: 0; font-family: var(--font-ui);
+  }
+  button:hover:not(:disabled), button:focus-visible { background: var(--orange); border-color: var(--orange); color: var(--black); }
+  button:disabled { opacity: .3; cursor: default; }
+  @media (prefers-reduced-motion: reduce) { .track { scroll-behavior: auto; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.carousel').forEach((c) => {
+    const track = c.querySelector<HTMLElement>('.track')!;
+    const prev = c.querySelector<HTMLButtonElement>('.prev')!;
+    const next = c.querySelector<HTMLButtonElement>('.next')!;
+    const step = () => (track.firstElementChild as HTMLElement | null)?.getBoundingClientRect().width ?? track.clientWidth;
+    const update = () => {
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+      c.querySelector<HTMLElement>('.controls')!.hidden = track.scrollWidth <= track.clientWidth + 2;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -(step() + 24) }));
+    next.addEventListener('click', () => track.scrollBy({ left: step() + 24 }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+</script>

@@ -1,0 +1,35 @@
+---
+// Looping film-texture video behind a section. Muted, plays only while on screen,
+// and shows the still poster instead for anyone with "reduce motion" switched on.
+interface Props {
+  clip: string;                       // file name in /public/film without extension
+  treatment?: 'mono' | 'warm' | 'raw' | 'screen';
+  strength?: number;                  // 0–1 opacity of the film layer
+}
+const { clip, treatment = 'mono', strength = 0.45 } = Astro.props;
+---
+<div class={`film film--${treatment}`} style={`--strength:${strength}`} aria-hidden="true">
+  <video muted loop playsinline preload="none" poster={`/film/${clip}.jpg`} data-src={`/film/${clip}.mp4`}></video>
+</div>
+
+<style>
+  .film { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+  .film video { width: 100%; height: 100%; object-fit: cover; opacity: var(--strength); }
+  .film--mono video { filter: grayscale(1) contrast(1.3) brightness(.8); }
+  .film--warm video { filter: grayscale(1) sepia(1) saturate(2.2) hue-rotate(-12deg) contrast(1.2) brightness(.75); }
+  .film--screen video { mix-blend-mode: screen; filter: grayscale(.3) contrast(1.4); }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      const v = target as HTMLVideoElement;
+      if (isIntersecting) {
+        if (!v.src) v.src = v.dataset.src!;
+        v.play().catch(() => {});
+      } else v.pause();
+    });
+  }, { rootMargin: '200px' });
+  if (!reduce) document.querySelectorAll<HTMLVideoElement>('.film video').forEach((v) => io.observe(v));
+</script>

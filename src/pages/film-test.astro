@@ -1,0 +1,32 @@
+---
+// Internal comparison page: not linked anywhere, not indexed. Delete once a film direction is picked.
+import Base from '../layouts/Base.astro';
+import FilmBg from '../components/FilmBg.astro';
+const options = [
+  { clip: '16mm-sprocket-03', treatment: 'mono', strength: 0.35, note: 'A. 16mm sprocket, black & white, low. Closest to the current film still.' },
+  { clip: '16mm-sprocket-05', treatment: 'warm', strength: 0.45, note: 'B. 16mm sprocket, tinted warm/orange. Ties to the brand orange.' },
+  { clip: '35mm-damage-09', treatment: 'mono', strength: 0.5, note: 'C. 35mm scratches & damage. Grittier, more "punk".' },
+  { clip: 'film-burns-hd-001', treatment: 'screen', strength: 0.7, note: 'D. Film burn, full colour. Loud: best saved for one moment, e.g. the contact section.' },
+  { clip: '8mm-frame-16', treatment: 'mono', strength: 0.4, note: 'E. 8mm frame flicker, black & white. Quiet and textural.' },
+  { clip: '8mm-frame-16', treatment: 'raw', strength: 0.55, note: 'F. 8mm frame, original teal colour. For contrast only.' },
+] as const;
+---
+<Base title="Film texture test — Punk Lotus" description="Internal design test.">
+  <meta name="robots" content="noindex" slot="head" />
+  {options.map((o) => (
+    <section class="section section--dark has-film sample">
+      <FilmBg clip={o.clip} treatment={o.treatment} strength={o.strength} />
+      <div class="wrap">
+        <p class="tag">{o.note}</p>
+        <blockquote>“She gets who I am and knows how to capture my vibe, but always with an eye on who we're actually trying to reach.”</blockquote>
+        <h2>It’s ok to ask for help.</h2>
+      </div>
+    </section>
+  ))}
+</Base>
+<style>
+  .sample { min-height: 60vh; display: flex; align-items: center; border-bottom: 2px solid var(--black); }
+  .sample .wrap { width: 100%; }
+  .tag { font-family: var(--font-ui); font-weight: 700; color: var(--cream); background: rgba(0,0,0,.6); display: inline-block; padding: 6px 10px; }
+  blockquote { margin: 1em 0; max-width: 50ch; font-size: 1.25rem; }
+</style>

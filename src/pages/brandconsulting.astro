@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
+import Carousel from '../components/Carousel.astro';
+import FilmBg from '../components/FilmBg.astro';
 
 const services = [
   {
@@ -43,17 +45,18 @@ const proof = [
   { name: 'Mobile Social Engagement Platform', body: 'Led the communications function for a Barcelona-based mobile engagement tech platform — internal and external comms, PR, brand strategy and consistency, copy and content. Strategy and execution across a multinational team and a fast-moving product.' },
 ];
 
-const logos = [
+const logoFor = [
   ['coworkation', 'Coworkation'], ['quartz', 'Quartz'], ['helsi', 'Helsi'], ['happy-herb-co', 'Happy Herb Co'],
   ['zadro', 'Zadro'], ['tinkera', 'Tinkera'], ['gondwana', 'Gondwana Rainforest Trust, Rainforest Rangers and Save the Daintree'],
   ['olivers-hens', "Oliver's Hens"], ['golf365', 'Golf365 Performance Studio'], ['jet8', 'Jet8'],
 ];
 
 const testimonials = [
-  { quote: "Kirsty handled the brand building and launch of Golf365 with clarity and ease. She's strategic, creative, and good at translating founder! We launched with a structured and confident brand. I'd work with her again in a heartbeat.", who: 'Evie Graham, Founder, Golf365 Performance Studio' },
-  { quote: "I've worked with Kirsty on two of my businesses. She's great at working out priorities and just getting the work done. She gets who I am and knows how to capture my vibe, but always with an eye on who we're actually trying to reach and what the business needs to achieve.", who: 'Oliver Bora, Founder, Tinkera, Oliver’s Hens' },
-  { quote: 'I had the pleasure of working with Kirsty for several years. Not only is she an absolute delight to work with, her strategic thinking and holistic approach to projects is so valuable. In addition, her curiosity and interest in broad topics and innovation is a real asset. I hope to work together again!', who: 'Marlise Beasley, General Manager/Account Director, Zadro' },
+  { quote: "Kirsty handled the brand building and launch of Golf365 with clarity and ease. She's strategic, creative, and good at translating founder! We launched with a structured and confident brand. I'd work with her again in a heartbeat.", who: 'Evie Graham, Founder,', org: [['Golf365 Performance Studio', 'https://www.facebook.com/golf365performancestudio/']] },
+  { quote: "I've worked with Kirsty on two of my businesses. She's great at working out priorities and just getting the work done. She gets who I am and knows how to capture my vibe, but always with an eye on who we're actually trying to reach and what the business needs to achieve.", who: 'Oliver Bora, Founder,', org: [['Tinkera', 'https://www.tinkera.com.au'], ['Oliver’s Hens', 'https://www.olivershens.com']] },
+  { quote: 'I had the pleasure of working with Kirsty for several years. Not only is she an absolute delight to work with, her strategic thinking and holistic approach to projects is so valuable. In addition, her curiosity and interest in broad topics and innovation is a real asset. I hope to work together again!', who: 'Marlise Beasley, General Manager/Account Director,', org: [['Zadro', 'https://www.zadroagency.com.au']] },
 ];
+const proofCards = proof.map((p, i) => ({ ...p, logo: logoFor[i][0], alt: logoFor[i][1] }));
 ---
 <Base
   title="Brand & Communications Consulting — Punk Lotus"
@@ -72,12 +75,14 @@ const testimonials = [
       <h2>Services scoped to fit.</h2>
       <div class="services">
         {services.map((s) => (
-          <article class="service">
-            <h3>{s.name}</h3>
-            <p>{s.body}</p>
-            <p class="label">Common deliverables:</p>
-            <ul>{s.deliverables.map((d) => <li>{d}</li>)}</ul>
-          </article>
+          <details class="service">
+            <summary><h3>{s.name}</h3><span class="toggle" aria-hidden="true"></span></summary>
+            <div class="service-body">
+              <p>{s.body}</p>
+              <p class="label">Common deliverables:</p>
+              <ul>{s.deliverables.map((d) => <li>{d}</li>)}</ul>
+            </div>
+          </details>
         ))}
       </div>
     </div>
@@ -86,28 +91,31 @@ const testimonials = [
   <section class="section section--white">
     <div class="wrap">
       <h2>Proof.</h2>
-      <ul class="logos">
-        {logos.map(([file, alt]) => <li><img src={`/images/clients/${file}.png`} alt={alt} loading="lazy" width="160" height="160" /></li>)}
-      </ul>
-      <div class="proof">
-        {proof.map((p) => (
-          <article>
+      <Carousel label="Proof: brand work" perView={3}>
+        {proofCards.map((p) => (
+          <li class="card">
+            <img src={`/images/clients/${p.logo}.png`} alt={p.alt} loading="lazy" width="160" height="160" />
             <h3>{p.name}</h3>
             <p>{p.body}</p>
-          </article>
+          </li>
         ))}
-      </div>
+      </Carousel>
     </div>
   </section>
 
-  <section class="section section--dark">
-    <div class="wrap quotes">
-      {testimonials.map((t) => (
-        <figure>
-          <blockquote><p>{t.quote}</p></blockquote>
-          <figcaption>{t.who}</figcaption>
-        </figure>
-      ))}
+  <section class="section section--dark has-film">
+    <FilmBg clip="16mm-sprocket-03" treatment="mono" strength={0.35} />
+    <div class="wrap">
+      <Carousel label="Testimonials" perView={1} tone="dark">
+        {testimonials.map((t) => (
+          <li>
+            <figure>
+              <blockquote><p>“{t.quote}”</p></blockquote>
+              <figcaption>{t.who} {t.org.map(([n, url], i) => <>{i > 0 && ', '}<a href={url} rel="noopener">{n}</a></>)}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </Carousel>
     </div>
   </section>
 
@@ -126,18 +134,27 @@ const testimonials = [
 <style>
   .center { text-align: center; }
   .center .lede { margin-bottom: 1.4em; }
-  .services { display: grid; gap: 48px; }
-  .service { border-top: 3px solid var(--charcoal); padding-top: 24px; max-width: 80ch; }
+  .services { display: grid; max-width: 80ch; border-top: 3px solid var(--charcoal); }
+  .service { border-bottom: 3px solid var(--charcoal); }
+  summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; }
+  summary::-webkit-details-marker { display: none; }
+  summary h3 { margin: 0; }
+  summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+  .toggle { flex: none; width: 22px; height: 22px; position: relative; }
+  .toggle::before, .toggle::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px; background: currentColor; transition: transform .2s; }
+  .toggle::after { transform: rotate(90deg); }
+  details[open] .toggle::after { transform: rotate(0deg); }
+  .service-body { padding-bottom: 24px; }
   .label { font-family: var(--font-ui); font-weight: 700; margin-bottom: .4em; }
   .service ul { margin: 0; padding-left: 1.2em; }
-  .logos { list-style: none; padding: 0; margin: 0 0 56px; display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); align-items: center; }
-  .logos img { width: 100%; max-width: 160px; margin: 0 auto; aspect-ratio: 1; object-fit: contain; }
-  .proof { display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-  .proof h3 { font-size: 1.15rem; color: var(--charcoal); }
-  .quotes { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-  figure { margin: 0; }
-  blockquote { margin: 0 0 1em; color: var(--cream); }
-  figcaption { font-family: var(--font-ui); font-weight: 700; color: var(--orange); }
+  .card img { width: 140px; height: 140px; object-fit: contain; margin-bottom: 20px; }
+  .card h3 { font-size: 1.1rem; color: var(--charcoal); }
+  .card p { font-size: .95rem; }
+  figure { margin: 0; max-width: 60ch; }
+  blockquote { margin: 0 0 1em; color: var(--white); font-size: clamp(1.05rem, 2vw, 1.3rem); }
+  figcaption { font-family: var(--font-ui); font-weight: 700; color: var(--cream); }
+  figcaption a { color: var(--orange); }
   .contact { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
   .contact a { color: var(--charcoal); font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) { .toggle::before, .toggle::after { transition: none; } }
 </style>
