@@ -9,7 +9,15 @@ This is Punk Lotus's own website, moving off Squarespace. Copy and voice rules l
 - **`_source/`** (gitignored) holds the Squarespace originals scraped 2026-11-20: page HTML, extracted copy, images.
 - **Live-site fonts, as found:** Climate Crisis (headings), Droid Sans Mono (body; replaced here by Noto Sans Mono, its successor), Archivo (UI). Kirsty thinks Climate Crisis is hard to read, so a type rethink is pending.
 
-## Switch-over checklist (not done yet)
-1. Netlify: connect the repo, confirm the preview, and set up form notifications to kt@punklotus.com.
-2. DNS: copy **every** record from Squarespace DNS (the Google Workspace MX `smtp.google.com` and the google-site-verification TXT), then point the domain at Netlify. Add SPF/DKIM/DMARC.
-3. After going live: resubmit the sitemap in Google Search Console, then cancel the Squarespace plan. Don't cancel before DNS is confirmed working.
+## Live (since 20 Nov 2026)
+- **DNS lives at GoDaddy** (nameservers ns55/ns56.domaincontrol.com). Squarespace DNS couldn't hand over to Netlify DNS because both use NS1.
+- **Records:** A @ 75.2.60.5 (Netlify), CNAME www → punklotus.netlify.app, MX @ 1 smtp.google.com (Google Workspace), TXT google-site-verification, TXT SPF `v=spf1 include:_spf.google.com ~all`, TXT _dmarc `v=DMARC1; p=none;`.
+- **Primary domain is `punklotus.com` (no www).** www 301s to it, and the canonical, sitemap and schema all use non-www.
+- **Netlify visitor access** is set to "Previews only": production is public, deploy previews are private. Forms are enabled and tested.
+- **Pushing to `main` deploys live.** Check the preview locally first.
+
+## Still to do
+1. Resubmit the sitemap in Google Search Console (`https://punklotus.com/sitemap-index.xml`).
+2. Cancel the Squarespace site plan about a week after go-live (~27 Nov), once everything is confirmed.
+3. DKIM in Google Workspace, then tighten DMARC (see `00-hq/open-loop.md`).
+4. Gut-Check page + payment, FAQ page, Kirsty's drawings + handwriting font, and a voice check on the new copy lines.
